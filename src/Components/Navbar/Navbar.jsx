@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
 
 const Navbar = () => {
+
+    const { user, logOut } = use(AuthContext);
+
+
+
+    const handleSignOut = () => {
+    logOut()
+        .then(() => {
+           
+        })
+        .catch(err => console.log(err));
+};
+
+
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">
@@ -15,9 +30,13 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/allProducts">All Products</NavLink>
-                            <NavLink to="/register">My Products</NavLink>
-                            <NavLink to="/register">My Bids</NavLink>
-                            <NavLink to="/register">Create Product</NavLink>
+                            {
+                                user && <>
+                                    <NavLink to="/myProducts">My Products</NavLink>
+                                    <NavLink to="/myBids">My Bids</NavLink>
+                                    <NavLink to="/createProduct">Create Product</NavLink>
+                                </>
+                            }
 
                         </ul>
                     </div>
@@ -29,14 +48,22 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 gap-10">
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/allProducts">All Products</NavLink>
-                        <NavLink to="/register">My Products</NavLink>
-                        <NavLink to="/register">My Bids</NavLink>
-                        <NavLink to="/register">Create Product</NavLink>
+                        {
+                            user && <>
+                                <NavLink to="/myProducts">My Products</NavLink>
+                                <NavLink to="/myBids">My Bids</NavLink>
+                                <NavLink to="/createProduct">Create Product</NavLink>
+                            </>
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end gap-3">
-                    <Link to="/login" className="btn">Login</Link>
-                    <Link to="/register" className="btn">Register</Link>
+
+                    {
+                        user ? <button onClick={handleSignOut} className="btn">Sign Out</button> : <Link to="/login" className="btn">Log In</Link>
+                    }
+
+
                 </div>
             </div>
         </div>
