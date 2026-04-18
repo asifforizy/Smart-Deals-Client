@@ -1,2 +1,13 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@plugin "daisyui/theme" {
+--gradient-primary: linear-gradient(
+    to right,
+    #632EE3 0%,
+    #9F62F2 100%
+  );
+
+}
