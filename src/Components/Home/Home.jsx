@@ -1,8 +1,19 @@
 import React from 'react';
 import leftBg from '../../assets/bg-hero-left.png';
 import rightBg from '../../assets/bg-hero-right.png';
+import { Link } from 'react-router';
+import LatestProducts from '../LatstProducts/LatestProducts';
+
+
+
 
 const Home = () => {
+
+
+
+
+
+
     return (
         <div
             className="relative p-20 bg-gradient-to-r from-[#FFE6FD] to-[#E0F8F5] overflow-hidden"
@@ -54,20 +65,23 @@ const Home = () => {
                     <input
                         type="search"
                         required
-                        placeholder="Search"
+                        placeholder="Search For Products..."
                     />
                 </label>
 
                 <div className="flex items-center justify-center mt-10 gap-5">
-                    <button className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">
+                    <Link to="/allProducts" ><button className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">
                         Watch All Products
-                    </button>
+                    </button></Link>
 
-                    <button className="btn px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:opacity-90 transition duration-300 shadow-md border border-[#632EE3]">
+                    <Link to="/createProduct"><button className="btn px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:opacity-90 transition duration-300 shadow-md border border-[#632EE3]">
                         Post a Product
-                    </button>
+                    </button></Link>
                 </div>
             </div>
+
+
+            
         </div>
     );
 };

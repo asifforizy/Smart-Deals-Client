@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         index: true,
-        Component: Home,
+        Component: App,
       },
 
       {
@@ -43,10 +43,7 @@ const router = createBrowserRouter([
         path: "/myProducts",
         Component: MyProducts,
       },
-      {
-        path: "/myProducts",
-        Component: MyProducts,
-      },
+      
       {
         path: "/myBids",
         Component: MyBids,

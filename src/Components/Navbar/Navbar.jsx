@@ -18,8 +18,8 @@ const Navbar = () => {
 
 
     return (
-        <div>
-            <div className="navbar bg-base-100 shadow-sm">
+        <div className=''>
+            <div className="navbar bg-base-100 shadow-sm px-10">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,6 +57,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-3">
+
+                    
 
                     {
                         user ? <button onClick={handleSignOut} className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">Sign Out</button> : <Link to="/login" className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">Log In</Link>
