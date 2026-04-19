@@ -40,8 +40,7 @@ const Navbar = () => {
 
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl font-bold">Smart<span className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">
-                        Deals
+                    <a className="btn btn-ghost text-xl font-bold">Smart<span className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">Deals
                     </span></a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -60,7 +59,7 @@ const Navbar = () => {
                 <div className="navbar-end gap-3">
 
                     {
-                        user ? <button onClick={handleSignOut} className="btn">Sign Out</button> : <Link to="/login" className="btn">Log In</Link>
+                        user ? <button onClick={handleSignOut} className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">Sign Out</button> : <Link to="/login" className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">Log In</Link>
                     }
 
 

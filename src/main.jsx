@@ -12,6 +12,7 @@ import Login from './Components/Login/Login.jsx';
 import MyProducts from './Components/MyProducts/MyProducts.jsx';
 import MyBids from './Components/MyBids/MyBids.jsx';
 import CreateProduct from './Components/CreateProduct/CreateProduct.jsx';
+import Home from './Components/Home/Home.jsx';
 
 
 const router = createBrowserRouter([
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         index: true,
-        Component: App,
+        Component: Home,
       },
 
       {

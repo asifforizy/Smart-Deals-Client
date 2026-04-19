@@ -11,6 +11,31 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+
+                const newUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    image: user.photoURL,
+                    uid: user.uid
+                }
+
+                // create user in database
+                fetch('http://localhost:3000/users',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("data after user save : ",data);
+                })
+
+
+
+
+
             })
             .catch(error => {
                 console.error(error);
@@ -55,7 +80,7 @@ const Register = () => {
                                 <label className="label">Password</label>
                                 <input type="password" className="input w-full" placeholder="Password" />
 
-                                <button className="btn btn-neutral mt-4 w-full">
+                                <button className="btn  mt-4 w-full px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">
                                     Register
                                 </button>
 

@@ -32,7 +32,7 @@ const Login = () => {
                             <input type="password" className="input w-full" placeholder="Password" />
                             <div><a className="link link-hover">Forgot password?</a></div>
 
-                            <button className="btn btn-neutral mt-4 w-full">
+                            <button className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md mt-4 w-full">
                                 Sign In
                             </button>
 
