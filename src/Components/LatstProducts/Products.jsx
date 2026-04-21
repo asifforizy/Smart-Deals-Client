@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Products = ({ product }) => {
-    const { title, price_min, price_max, image, usage } = product;
+    const { title, price_min, price_max, image, usage,_id } = product;
     return (
         <div>
             <div className="card bg-base-100  shadow-sm">
@@ -19,10 +20,11 @@ const Products = ({ product }) => {
                 </figure>
                 <div className="card-body  ">
                     <h2 className="card-title overflow-hidden text-ellipsis line-clamp-2 h-[3rem] leading-snug">{title}- [{usage}]</h2>
-                    <p className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">$ {price_min}-{price_max}</p>
-                    <div className="card-actions w-full">
-                        <button className="btn w-full px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:opacity-90 transition duration-300 shadow-md border border-[#632EE3]">View Details</button>
-                    </div>
+                    <p className="bg-gradient-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">Price: ${price_min}-{price_max}</p>
+                    <Link to={`/productDetails/${_id}`}><div className="card-actions w-full ">
+                        <button className="btn w-full px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:text-white transition duration-300 shadow-md border border-[#632EE3]">View Details</button>
+                    </div></Link>
+
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ import MyProducts from './Components/MyProducts/MyProducts.jsx';
 import MyBids from './Components/MyBids/MyBids.jsx';
 import CreateProduct from './Components/CreateProduct/CreateProduct.jsx';
 import Home from './Components/Home/Home.jsx';
+import ProductDetails from './Components/ProductDetails/ProductDetails.jsx';
 
 
 const router = createBrowserRouter([
@@ -51,6 +52,11 @@ const router = createBrowserRouter([
       {
         path: "/createProduct",
         Component: CreateProduct,
+      },
+      {
+        path: "/productDetails/:id",
+        loader:({params})=> fetch(`http://localhost:3000/products/${params.id}`),
+        Component: ProductDetails,
       }
 
 

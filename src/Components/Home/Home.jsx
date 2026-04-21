@@ -70,11 +70,11 @@ const Home = () => {
                 </label>
 
                 <div className="flex items-center justify-center mt-10 gap-5">
-                    <Link to="/allProducts" ><button className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">
+                    <Link to="/allProducts" ><button className="btn px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2]  transition duration-300 shadow-md">
                         Watch All Products
                     </button></Link>
 
-                    <Link to="/createProduct"><button className="btn px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:opacity-90 transition duration-300 shadow-md border border-[#632EE3]">
+                    <Link to="/createProduct"><button className="btn px-6 py-3 rounded-lg text-[#632EE3] font-semibold hover:bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:text-white transition duration-300 shadow-md border border-[#632EE3]">
                         Post a Product
                     </button></Link>
                 </div>
