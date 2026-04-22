@@ -1,17 +1,49 @@
-import React, { useRef } from 'react';
+import React, { use, useRef } from 'react';
 import { useLoaderData } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
 
 const ProductDetails = () => {
 
-    const handleModal = ()=>{
+    const { user} = use(AuthContext)
+    const product = useLoaderData();
+
+    const handleModal = () => {
         bidModalRef.current.showModal();
 
+    }
+
+    const handleBidSubmit = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const bid = e.target.bid.value;
+        console.log(name, email, bid,product._id ) 
+        const newBid = {
+            product: product._id,
+            buyer_name : name,
+            buyer_email: email,
+            bid_price : bid,
+            status: 'pending'
+
+        }
+
+        fetch('http://localhost:3000/bids',{
+            method: 'POST',
+            headers : {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newBid)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log('after bids', data);
+        } )
+        
     }
 
 
 
     const bidModalRef = useRef(null);
-    const product = useLoaderData();
 
     if (!product) {
         return <p className="m-10">Loading product...</p>;
@@ -70,7 +102,7 @@ const ProductDetails = () => {
                         </span>
 
                         {/* Price */}
-                        <div className="bg-white p-4 rounded-lg shadow">
+                        <div className="bg-white p-5 rounded-lg shadow">
                             <p className="text-green-600 text-xl font-semibold">
                                 ${product.price_min} - {product.price_max}
                             </p>
@@ -80,7 +112,7 @@ const ProductDetails = () => {
                         </div>
 
                         {/* Product Details */}
-                        <div className="bg-white p-4 rounded-lg shadow">
+                        <div className="bg-white p-5 rounded-lg shadow">
                             <h2 className="font-semibold text-gray-700 mb-2">
                                 Product Details
                             </h2>
@@ -93,7 +125,7 @@ const ProductDetails = () => {
                         </div>
 
                         {/* Seller Info */}
-                        <div className="bg-white p-4 rounded-lg shadow">
+                        <div className="bg-white p-5 rounded-lg shadow">
                             <h2 className="font-semibold text-gray-700 mb-3">
                                 Seller Information
                             </h2>
@@ -130,11 +162,38 @@ const ProductDetails = () => {
 
 
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-                        <button  className="btn" onClick={() => document.getElementById('my_modal_5').showModal()}>open modal</button>
+
                         <dialog ref={bidModalRef} id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                             <div className="modal-box">
-                                <h3 className="font-bold text-lg">Hello!</h3>
-                                <p className="py-4">Press ESC key or click the button below to close</p>
+                                <h3 className="font-bold text-lg text-center">Give Seller Your Offered Price</h3>
+
+                                <form onSubmit={handleBidSubmit}>
+                                    <div className="card-body">
+                                        <fieldset className="fieldset">
+                                            {/* name */}
+                                            <label className="label">Name</label>
+                                            <input type="text" className="input w-full" name='name' readOnly defaultValue={user.displayName} />
+
+
+
+                                            {/* email */}
+                                            <label className="label">Email</label>
+                                            <input type="email" className="input w-full" name='email' defaultValue={user.email} />
+
+                                            {/* amount*/}
+                                            <label className="label">Bid</label>
+                                            <input type="number" className="input w-full" name='bid' placeholder="Enter Amount" />
+
+                                            <button className="btn  mt-4 w-full px-6 py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-[#632EE3] to-[#9F62F2] hover:opacity-90 transition duration-300 shadow-md">
+                                                Place Your Bid
+                                            </button>
+
+                                            <div className="flex items-center gap-3 mt-4">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </form>
+
                                 <div className="modal-action">
                                     <form method="dialog">
                                         {/* if there is a button in form, it will close the modal */}
