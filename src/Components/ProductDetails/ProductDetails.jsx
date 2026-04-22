@@ -1,10 +1,11 @@
 import React, { use, useRef } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
+import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
 
-    const { user} = use(AuthContext)
+    const { user } = use(AuthContext)
     const product = useLoaderData();
 
     const handleModal = () => {
@@ -17,28 +18,38 @@ const ProductDetails = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const bid = e.target.bid.value;
-        console.log(name, email, bid,product._id ) 
+        console.log(name, email, bid, product._id)
         const newBid = {
             product: product._id,
-            buyer_name : name,
+            buyer_name: name,
             buyer_email: email,
-            bid_price : bid,
+            bid_price: bid,
             status: 'pending'
 
         }
 
-        fetch('http://localhost:3000/bids',{
+        fetch('http://localhost:3000/bids', {
             method: 'POST',
-            headers : {
+            headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(newBid)
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log('after bids', data);
-        } )
-        
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    bidModalRef.current.close() 
+
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your Bid has been placed",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+
     }
 
 
@@ -172,13 +183,13 @@ const ProductDetails = () => {
                                         <fieldset className="fieldset">
                                             {/* name */}
                                             <label className="label">Name</label>
-                                            <input type="text" className="input w-full" name='name' readOnly defaultValue={user.displayName} />
+                                            <input type="text" className="input w-full" name='name' readOnly defaultValue={user?.displayName || ""} />
 
 
 
                                             {/* email */}
                                             <label className="label">Email</label>
-                                            <input type="email" className="input w-full" name='email' defaultValue={user.email} />
+                                            <input type="email" className="input w-full" name='email' defaultValue={user?.email || ""} />
 
                                             {/* amount*/}
                                             <label className="label">Bid</label>
@@ -197,7 +208,7 @@ const ProductDetails = () => {
                                 <div className="modal-action">
                                     <form method="dialog">
                                         {/* if there is a button in form, it will close the modal */}
-                                        <button className="btn">Close</button>
+                                        <button className="btn">Cancel Bid</button>
                                     </form>
                                 </div>
                             </div>
