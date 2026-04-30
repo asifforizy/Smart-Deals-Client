@@ -7,14 +7,14 @@ const ProductDetails = () => {
 
     const { user } = use(AuthContext)
     const product = useLoaderData();
-    const [bids , setBids] = useState([]);
+    const [bids, setBids] = useState([]);
 
 
     useEffect(() => {
         fetch(`http://localhost:3000/products/bids/${product._id}`)
             .then(res => res.json())
             .then(data => {
-                console.log("bids for this product",data)
+                console.log("bids for this product", data)
                 setBids(data);
             })
     }, [product._id])
@@ -59,6 +59,12 @@ const ProductDetails = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+
+                    newBid._id = data.insertedId;
+                    const newBids = [...bids, newBid];
+                    setBids(newBids)
+
+
                 }
             })
 
@@ -236,56 +242,62 @@ const ProductDetails = () => {
                         <span className="text-purple-600"> {bids.length}</span>
                     </h2>
 
-                    <div className="mt-4 overflow-x-auto bg-white rounded-lg shadow">
-                        <table className="min-w-full text-sm text-left">
-                            <thead className="bg-gray-100 text-gray-600">
+                    <div className="overflow-x-auto">
+                        <table className="table">
+                            {/* head */}
+                            <thead>
                                 <tr>
-                                    <th className="p-3">SL No</th>
-                                    <th className="p-3">Product</th>
-                                    <th className="p-3">Seller</th>
-                                    <th className="p-3">Bid Price</th>
-                                    <th className="p-3">Actions</th>
+
+                                    <th>SL No</th>
+                                    <th>Buyer Name</th>
+                                    <th>Buyer Email</th>
+                                    <th>Bid Price</th>
+                                    <th>Actions</th>
+
                                 </tr>
                             </thead>
+                            <tbody>
+                                {/* row 1 */}
+                                {
+                                    [...bids]
+                                        .sort((a, b) => b.bid_price - a.bid_price) 
+                                        .map((bid, index) =>
+                                            <tr>
+                                                <th>
+                                                    {index + 1}
+                                                </th>
+                                                <td>
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="avatar">
+                                                            <div className="mask mask-squircle h-12 w-12">
+                                                                <img
+                                                                    src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                                                    alt="Avatar Tailwind CSS Component" />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="font-bold">{bid.buyer_name}</div>
 
-                            <tbody className="divide-y">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
 
-                                {[1, 2, 3].map((item) => (
-                                    <tr key={item}>
-                                        <td className="p-3">{item}</td>
 
-                                        <td className="p-3 flex items-center space-x-3">
-                                            <div className="w-10 h-10 bg-gray-300"></div>
-                                            <div>
-                                                <p>Orange Juice</p>
-                                                <p className="text-xs text-gray-500">$22.5</p>
-                                            </div>
-                                        </td>
+                                                    <td>{bid.buyer_email}</td>
+                                                </td>
+                                                <td>{bid.bid_price}</td>
+                                                <th>
+                                                    <button className="btn btn-ghost btn-xs">details</button>
+                                                </th>
+                                            </tr>
+                                        )
+                                }
 
-                                        <td className="p-3 flex items-center space-x-2">
-                                            <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
-                                            <div>
-                                                <p className="text-sm">Sara Chen</p>
-                                                <p className="text-xs text-gray-500">
-                                                    crafts.by.sara@shop.net
-                                                </p>
-                                            </div>
-                                        </td>
-
-                                        <td className="p-3">$10</td>
-
-                                        <td className="p-3 space-x-2">
-                                            <button className="bg-green-100 text-green-600 px-3 py-1 rounded text-xs">
-                                                Accept
-                                            </button>
-                                            <button className="bg-red-100 text-red-600 px-3 py-1 rounded text-xs">
-                                                Reject
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
 
                             </tbody>
+
+
                         </table>
                     </div>
                 </div>
