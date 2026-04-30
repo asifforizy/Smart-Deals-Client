@@ -1,4 +1,4 @@
-import React, { use, useRef } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
@@ -7,6 +7,17 @@ const ProductDetails = () => {
 
     const { user } = use(AuthContext)
     const product = useLoaderData();
+    const [bids , setBids] = useState([]);
+
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/products/bids/${product._id}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log("bids for this product",data)
+                setBids(data);
+            })
+    }, [product._id])
 
     const handleModal = () => {
         bidModalRef.current.showModal();
@@ -23,6 +34,7 @@ const ProductDetails = () => {
             product: product._id,
             buyer_name: name,
             buyer_email: email,
+            buyer_image: user?.photoURL,
             bid_price: bid,
             status: 'pending'
 
@@ -38,7 +50,7 @@ const ProductDetails = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    bidModalRef.current.close() 
+                    bidModalRef.current.close()
 
                     Swal.fire({
                         position: "center",
@@ -221,7 +233,7 @@ const ProductDetails = () => {
                 <div className="mt-10">
                     <h2 className="text-2xl font-bold text-gray-800">
                         Bids For This Products:
-                        <span className="text-purple-600"> 03</span>
+                        <span className="text-purple-600"> {bids.length}</span>
                     </h2>
 
                     <div className="mt-4 overflow-x-auto bg-white rounded-lg shadow">
